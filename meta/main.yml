@@ -1,0 +1,22 @@
+galaxy_info:
+  author: Kazuhiro NISHIYAMA
+  description: Allow to receive syslog from remote hosts.
+  license: MIT
+  min_ansible_version: 1.2
+
+  platforms:
+  - name: Ubuntu
+    versions:
+    - precise
+    - trusty
+    - xenial
+  - name: Debian
+    versions:
+    - wheezy
+    - jessie
+
+  galaxy_tags:
+  - rsyslog
+  - logging
+
+dependencies: []

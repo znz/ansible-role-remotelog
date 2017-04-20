@@ -1,0 +1,4 @@
+---
+# defaults file for ansible-role-remotelog
+remotelog_directory: "/var/log/remote"
+remotelog_basename: "%$year%%$month%%$day%_%fromhost-ip%.log"

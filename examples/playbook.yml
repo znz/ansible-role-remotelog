@@ -1,0 +1,5 @@
+---
+- hosts: all
+  become: yes
+  roles:
+  - { role: znz.remotelog, remotelog_basename: "%$year%%$month%%$day%_%fromhost-ip%.log" }

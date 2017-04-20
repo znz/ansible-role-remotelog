@@ -1,0 +1,14 @@
+---
+# tasks file for ansible-role-remotelog
+- name: "install rsyslog"
+  apt:
+    name: rsyslog
+- name: "remotelog_directory when Debian"
+  file: state=directory path={{ remotelog_directory }} owner=root group=adm mode=02750
+  when: ansible_distribution == "Debian"
+- name: "remotelog_directory when Ubuntu"
+  file: state=directory path={{ remotelog_directory }} owner=syslog group=adm mode=02750
+  when: ansible_distribution == "Ubuntu"
+- name: "/etc/rsyslog.d/10-local.conf"
+  template: src=10-local.conf.j2 dest=/etc/rsyslog.d/10-local.conf owner=root group=root mode=0644
+  notify: restart rsyslog

@@ -10,21 +10,30 @@ describe package('rsyslog') do
 end
 
 describe port(514) do
+  # precise64 failed. see https://bugs.launchpad.net/ubuntu/+source/rsyslog/+bug/789174
   it { should be_listening.with('tcp') }
   it { should be_listening.with('tcp6') }
   it { should be_listening.with('udp') }
   it { should be_listening.with('udp6') }
 end
 
-message = "Test#{Time.now.to_i}"
+now = Time.now.utc
+message = "Test#{now.to_i}"
+vm_ip = '10.0.2.15'
 
-describe command("logger --server ::1 #{message}") do
+describe command("echo '<13>#{now.strftime('%b %d %H:%M:%S')} serverspec: #{message}' | nc -s #{vm_ip} -u -w 1 #{vm_ip} 514") do
   its(:stdout) { should eq '' }
   its(:stderr) { should eq '' }
   its(:exit_status) { should eq 0 }
 end
 
-log = "/var/log/remote/#{Time.now.strftime('%Y%m%d')}_::1.log"
+# flush log
+describe command("/etc/init.d/rsyslog restart") do
+  its(:stderr) { should eq '' }
+  its(:exit_status) { should eq 0 }
+end
+
+log = "/var/log/remote/#{now.strftime('%Y%m%d')}_#{vm_ip}.log"
 describe file(log) do
-  its(:content) { should match Regexp.new(Regexp.quote(message)) }
+  its(:content) { should match /^#{now.strftime('%b %d %H:%M:%S')} (?:#{Regexp.quote(vm_ip)}|precise64) serverspec: #{Regexp.quote(message)}$/ }
 end

@@ -2,12 +2,12 @@
 
 Allow to receive syslog from remote hosts.
 
-# Requirements
+## Requirements
 
 - Debian
 - Ubuntu
 
-# Role Variables
+## Role Variables
 
 - `remotelog_directory`: Directory for log files.
 - `remotelog_basename`: Log file name pattern. See rsyslog documents for more information.

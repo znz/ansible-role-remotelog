@@ -8,4 +8,4 @@ $InputTCPServerRun 514
 
 $template RemoteLog,"{{ remotelog_directory }}/{{ remotelog_basename }}"
 :fromhost-ip,!isequal,"127.0.0.1" ?RemoteLog
-& ~
+& stop

@@ -1,0 +1,5 @@
+[Unit]
+Description=Compress old remote logs
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/find '{{ remotelog_directory }}' -name '{{ remotelog_glob_pattern }}' -type f -mtime '+{{ remotelog_before_compress_days }}' -exec xz '{}' ';'

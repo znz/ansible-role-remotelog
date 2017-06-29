@@ -1,5 +1,11 @@
 ---
-- hosts: all
+- hosts: wheezy64:jessie64:precise64:trusty64
+  become: yes
+  roles:
+  - role: znz.remotelog
+    remotelog_basename: "%$year%%$month%%$day%_%fromhost-ip%.log"
+    remotelog_compress: no
+- hosts: stretch64:xenial64
   become: yes
   roles:
   - { role: znz.remotelog, remotelog_basename: "%$year%%$month%%$day%_%fromhost-ip%.log" }

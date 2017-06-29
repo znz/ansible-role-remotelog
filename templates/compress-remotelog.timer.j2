@@ -1,0 +1,10 @@
+[Unit]
+Description=Compress old remote logs
+
+[Timer]
+OnCalendar=*-*-* 0:10
+RandomizedDelaySec=3600
+Persistent=true
+
+[Install]
+WantedBy=timers.target

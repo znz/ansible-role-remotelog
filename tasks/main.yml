@@ -12,3 +12,16 @@
 - name: "/etc/rsyslog.d/10-local.conf"
   template: src=10-local.conf.j2 dest=/etc/rsyslog.d/10-local.conf owner=root group=root mode=0644
   notify: restart rsyslog
+
+- name: "Install compress-remotelog timer"
+  template:
+    src: "{{ item }}.j2"
+    dest: "/etc/systemd/system/{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+  notify: Enable compress-remotelog timer
+  when: remotelog_compress
+  with_items:
+  - "compress-remotelog.service"
+  - "compress-remotelog.timer"

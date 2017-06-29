@@ -2,3 +2,6 @@
 # defaults file for ansible-role-remotelog
 remotelog_directory: "/var/log/remote"
 remotelog_basename: "%$year%%$month%%$day%_%fromhost-ip%.log"
+remotelog_compress: yes
+remotelog_glob_pattern: "*.log"
+remotelog_before_compress_days: 2

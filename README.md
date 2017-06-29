@@ -25,6 +25,15 @@ Example:
       roles:
          - { role: znz.remotelog, remotelog_basename: "%$year%%$month%%$day%_%fromhost-ip%.log" }
 
+Another example when without systemd or systemd < 229:
+
+    - hosts: servers
+      become: yes
+      roles:
+         - role: znz.remotelog
+           remotelog_basename: "%$year%%$month%%$day%_%fromhost-ip%.log"
+           remotelog_compress: no
+
 ## License
 
 MIT License
